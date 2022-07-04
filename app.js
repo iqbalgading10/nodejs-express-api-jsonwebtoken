@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const appRoute = require('./src/routes/route-karyawan');
+const appRoute = require('./src/routes/route-phone');
 app.use('/', appRoute);
 
 app.set('port', (process.env.PORT || 8080));

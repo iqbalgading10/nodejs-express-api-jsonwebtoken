@@ -7,13 +7,13 @@ pool.on('error',(err)=> {
 });
 
 module.exports ={
-    // Ambil data semua karyawan
-    getDataKaryawan(req,res){
+    // Ambil data semua phone
+    getDataPhone(req,res){
         pool.getConnection(function(err, connection) {
             if (err) throw err;
             connection.query(
                 `
-                SELECT * FROM tabel_karyawan;
+                SELECT * FROM tabel_phone;
                 `
             , function (error, results) {
                 if(error) throw error;  
@@ -26,14 +26,14 @@ module.exports ={
             connection.release();
         })
     },
-    // Ambil data karyawan berdasarkan ID
-    getDataKaryawanByID(req,res){
+    // Ambil data phonr berdasarkan ID
+    getDataPhoneByID(req,res){
         let id = req.params.id;
         pool.getConnection(function(err, connection) {
             if (err) throw err;
             connection.query(
                 `
-                SELECT * FROM tabel_karyawan WHERE karyawan_id = ?;
+                SELECT * FROM tabel_phone WHERE phone_id = ?;
                 `
             , [id],
             function (error, results) {
@@ -47,19 +47,19 @@ module.exports ={
             connection.release();
         })
     },
-    // Simpan data karyawan
-    addDataKaryawan(req,res){
+    // Simpan data phone
+    addDataPhone(req,res){
         let data = {
-            karyawan_nama : req.body.nama,
-            karyawan_umur : req.body.umur,
-            karyawan_alamat : req.body.alamat,
-            karyawan_jabatan : req.body.jabatan
+            phone_name : req.body.name,
+            phone_jenis : req.body.jenis,
+            seri_phone : req.body.seri,
+            tgl_produksi : req.body.produksi
         }
         pool.getConnection(function(err, connection) {
             if (err) throw err;
             connection.query(
                 `
-                INSERT INTO tabel_karyawan SET ?;
+                INSERT INTO tabel_phone SET ?;
                 `
             , [data],
             function (error, results) {
@@ -72,20 +72,20 @@ module.exports ={
             connection.release();
         })
     },
-    // Update data karyawan
-    editDataKaryawan(req,res){
+    // Update data phone
+    editDataPhone(req,res){
         let dataEdit = {
-            karyawan_nama : req.body.nama,
-            karyawan_umur : req.body.umur,
-            karyawan_alamat : req.body.alamat,
-            karyawan_jabatan : req.body.jabatan
+            phone_name : req.body.name,
+            phone_jenis : req.body.jenis,
+            seri_phone : req.body.seri,
+            tgl_produksi : req.body.produksi
         }
         let id = req.body.id
         pool.getConnection(function(err, connection) {
             if (err) throw err;
             connection.query(
                 `
-                UPDATE tabel_karyawan SET ? WHERE karyawan_id = ?;
+                UPDATE tabel_phone SET ? WHERE phone_id = ?;
                 `
             , [dataEdit, id],
             function (error, results) {
@@ -98,14 +98,14 @@ module.exports ={
             connection.release();
         })
     },
-    // Delete data karyawan
-    deleteDataKaryawan(req,res){
+    // Delete data phone
+    deleteDataPhone(req,res){
         let id = req.body.id
         pool.getConnection(function(err, connection) {
             if (err) throw err;
             connection.query(
                 `
-                DELETE FROM tabel_karyawan WHERE karyawan_id = ?;
+                DELETE FROM tabel_phone WHERE phone_id = ?;
                 `
             , [id],
             function (error, results) {
